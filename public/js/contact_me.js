@@ -3,7 +3,9 @@ $(function() {
     $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function($form, event, errors) {
-            // additional error messages or events
+            console.log("form: ", $form);
+            console.log("event: ", event);
+            console.log("errors: ", errors);
         },
         submitSuccess: function($form, event) {
             // Prevent spam click and default submit behaviour
@@ -21,7 +23,7 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "././mail/contact_me.php",
+                url: '../../contact_me.php',
                 type: "POST",
                 data: {
                     name: name,
@@ -44,7 +46,7 @@ $(function() {
                     //clear all fields
                     $('#contactForm').trigger("reset");
                 },
-                error: function() {
+                error: function(e) {
                     // Fail message
                     $('#success').html("<div class='alert alert-danger'>");
                     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
@@ -53,12 +55,13 @@ $(function() {
                     $('#success > .alert-danger').append('</div>');
                     //clear all fields
                     $('#contactForm').trigger("reset");
-                },
+                    console.log(e);
+                }
             })
         },
         filter: function() {
             return $(this).is(":visible");
-        },
+        }
     });
 
     $("a[data-toggle=\"tab\"]").click(function(e) {

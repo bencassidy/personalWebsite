@@ -24,6 +24,14 @@ server.register(inert, function (err) {
     });
 
     server.route({
+        method: 'POST',
+        path: '/contact_me.php',
+        handler: function (request, reply) {
+            reply.file('./contact_me.php');
+        }
+    });
+
+    server.route({
         method: 'GET',
         path: '/{filename*}',
         handler: function (request, reply) {
